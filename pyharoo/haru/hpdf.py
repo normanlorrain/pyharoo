@@ -295,7 +295,7 @@ def HPDF_Page_SetRotate(
 _HPDF_GetFont=haru.HPDF_GetFont
 _HPDF_GetFont.restype=HPDF_Font
 def HPDF_GetFont(pdf, font_name, encoding_name):
-    return _HPDF_GetFont(pdf, bytes(font_name, 'utf-8'), encoding_name )
+    return _HPDF_GetFont(pdf, bytes(font_name, 'utf-8'), bytes(encoding_name, 'utf-8') )
 
 
 
