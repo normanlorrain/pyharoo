@@ -612,9 +612,11 @@ HPDF_TextAnnot_SetOpened.restype=HPDF_STATUS
 #--------------------------------------------------------------------------
 #----- image data ---------------------------------------------------------
 #HPDF_Image HPDF_LoadPngImageFromFile (HPDF_Doc pdf, const char *filename)
-HPDF_LoadPngImageFromFile=haru.HPDF_LoadPngImageFromFile
-HPDF_LoadPngImageFromFile.restype=HPDF_Image
+_HPDF_LoadPngImageFromFile=haru.HPDF_LoadPngImageFromFile
+_HPDF_LoadPngImageFromFile.restype=HPDF_Image
 
+def HPDF_LoadPngImageFromFile(pdf, filename):
+    return _HPDF_LoadPngImageFromFile(pdf, bytes(str(filename), 'utf-8'))
 
 #HPDF_Image HPDF_LoadPngImageFromFile2 (HPDF_Doc pdf, const char *filename)
 HPDF_LoadPngImageFromFile2=haru.HPDF_LoadPngImageFromFile2

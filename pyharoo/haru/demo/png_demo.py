@@ -16,6 +16,7 @@
 ## http://groups.google.com/group/pythoncia
 
 import os, sys
+from pathlib import Path
 
 from ctypes import *
 up=2
@@ -42,7 +43,7 @@ def error_handler (error_no, detail_no, user_data):
 def draw_image (pdf, filename, x, y, text):
     page = HPDF_GetCurrentPage (pdf)
 
-    filename1= "pngsuite/%s" % filename
+    filename1 = Path(__file__).parent.absolute() / "pngsuite" / filename
 
     image = HPDF_LoadPngImageFromFile (pdf, filename1)
 
