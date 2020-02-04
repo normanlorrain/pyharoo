@@ -16,6 +16,7 @@
 ## http://groups.google.com/group/pythoncia
 
 import os, sys
+from pathlib import Path
 
 from ctypes import *
 up=2
@@ -33,7 +34,7 @@ from haru.hpdf_errorcode import *
 
 for i in dir():
     if 'CreateOutLine' in i:
-        print i
+        print (i)
 
 
 @HPDF_Error_Handler(None, HPDF_UINT, HPDF_UINT, c_void_p)
@@ -67,10 +68,11 @@ def main():
     fname=os.path.realpath(sys.argv[0])
     fname=fname[:fname.rfind('.')]+'.pdf'
 
+    infilename = Path(__file__).parent.absolute() / "mbtext" / "sjis.txt"
     try:
-        f = open ("mbtext/sjis.txt", "rb")
+        f = open (infilename, "rb")
     except:
-        printf ("error: cannot open 'mbtext/sjis.txt'\n")
+        print(f"error: cannot open {infilename}")
         return 1
 
 
@@ -105,14 +107,14 @@ def main():
     print_page(page[2], 3)
 
     # create outline root.
-    root = HPDF_CreateOutLine (pdf, NULL, "OutlineRoot", NULL)
+    root = HPDF_CreateOutline (pdf, NULL, "OutlineRoot", NULL)
     HPDF_Outline_SetOpened (root, HPDF_TRUE)
 
-    outline[0] = HPDF_CreateOutLine (pdf, root, "page1", NULL)
-    outline[1] = HPDF_CreateOutLine (pdf, root, "page2", NULL)
+    outline[0] = HPDF_CreateOutline (pdf, root, "page1", NULL)
+    outline[1] = HPDF_CreateOutline (pdf, root, "page2", NULL)
 
     # create outline with test which is  encoding
-    outline[2] = HPDF_CreateOutLine (pdf, root, SAMP_TXT,
+    outline[2] = HPDF_CreateOutline (pdf, root, SAMP_TXT,
                     HPDF_GetEncoder (pdf, "90ms-RKSJ-H"))
 
     # create destination objects on each pages

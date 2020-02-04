@@ -361,7 +361,8 @@ HPDF_UseCNTFonts.restype=HPDF_STATUS
 _HPDF_CreateOutline=haru.HPDF_CreateOutline
 _HPDF_CreateOutline.restype=HPDF_Outline
 def HPDF_CreateOutline(pdf, parent, title, encoder):
-    title = bytes(title, 'utf-8')
+    if not isinstance(title, bytes):
+        title = bytes(str(title), 'utf-8')
     return _HPDF_CreateOutline(pdf,parent,title,encoder)
 
 #HPDF_STATUS HPDF_Outline_SetOpened (HPDF_Outline outline, HPDF_BOOL opened)
@@ -493,8 +494,10 @@ def HPDF_Destination_SetFitBV(
 #--------------------------------------------------------------------------
 #----- encoder ------------------------------------------------------------
 #HPDF_Encoder HPDF_GetEncoder (HPDF_Doc pdf, const char *encoding_name)
-HPDF_GetEncoder=haru.HPDF_GetEncoder
-HPDF_GetEncoder.restype=HPDF_Encoder
+_HPDF_GetEncoder=haru.HPDF_GetEncoder
+_HPDF_GetEncoder.restype=HPDF_Encoder
+def HPDF_GetEncoder(pdf, encoding_name):
+    return _HPDF_GetEncoder(pdf, bytes(encoding_name,'utf-8'))
 
 
 #HPDF_Encoder HPDF_GetCurrentEncoder (HPDF_Doc pdf)
