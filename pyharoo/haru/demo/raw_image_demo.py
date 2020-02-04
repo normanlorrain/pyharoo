@@ -16,6 +16,7 @@
 ## http://groups.google.com/group/pythoncia
 
 import os, sys
+from pathlib import Path
 
 from ctypes import *
 up=2
@@ -89,7 +90,9 @@ def main ():
     HPDF_Page_EndText (page)
 
     # load RGB raw-image file.
-    image = HPDF_LoadRawImageFromFile (pdf, "rawimage/32_32_rgb.dat",
+    DATA_DIR = Path(__file__).parent.absolute()
+    DATA_FILE = DATA_DIR / "rawimage/32_32_rgb.dat"
+    image = HPDF_LoadRawImageFromFile (pdf, DATA_FILE,
             32, 32, HPDF_CS_DEVICE_RGB)
 
     x = 20
@@ -99,7 +102,8 @@ def main ():
     HPDF_Page_DrawImage (page, image, x, y, 32, 32)
 
     # load GrayScale raw-image file.
-    image = HPDF_LoadRawImageFromFile (pdf, "rawimage/32_32_gray.dat",
+    DATA_FILE = DATA_DIR / "rawimage/32_32_gray.dat"
+    image = HPDF_LoadRawImageFromFile (pdf, DATA_FILE,
             32, 32, HPDF_CS_DEVICE_GRAY)
 
     x = 70

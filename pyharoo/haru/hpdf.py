@@ -638,6 +638,7 @@ def HPDF_LoadRawImageFromFile(
                              ):
     width=HPDF_UINT(width)
     height=HPDF_UINT(height)
+    filename=bytes(str(filename),'utf-8')  # filename could be bytes, str, or pathlib.Path.
     return _HPDF_LoadRawImageFromFile(
                                       pdf,    #HPDF_Doc
                                       filename,    #c_char_p
@@ -658,11 +659,13 @@ def HPDF_LoadRawImageFromMem(
                              color_space,    #HPDF_ColorSpace
                              bits_per_component,    #HPDF_UINT
                             ):
-    if type(buf) in (types.ListType, types.TupleType):
+    if isinstance(buf, str) or isinstance(buf, tuple):
         size=len(buf)
         buf=pointer((HPDF_BYTE*size)(*buf))
         if height in [0, None]:
             height=size/width
+    else:
+        buf = bytes(buf)
     width=HPDF_UINT(width)
     height=HPDF_UINT(height)
     bits_per_component=HPDF_UINT(bits_per_component)
