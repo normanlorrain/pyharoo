@@ -2073,7 +2073,8 @@ def HPDF_Page_TextRect(
     right=HPDF_REAL(right)
     bottom=HPDF_REAL(bottom)
 
-    if type(length) in (types.ListType, types.TupleType):
+
+    if isinstance(length, str) or isinstance(length, tuple):
         size=len(length)
         length=pointer((HPDF_UINT*size)(*length))
 
