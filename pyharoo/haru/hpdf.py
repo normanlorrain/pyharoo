@@ -1228,7 +1228,7 @@ def HPDF_Page_SetDash(
                       num_param,    #HPDF_UINT
                       phase,    #HPDF_UINT
                      ):
-    if type(dash_ptn) in (types.ListType, types.TupleType):
+    if isinstance(dash_ptn, list) or isinstance (dash_ptn, tuple):
         num_param=len(dash_ptn)
         dash_ptn=pointer((HPDF_UINT16*num_param)(*dash_ptn))
     return _HPDF_Page_SetDash(
