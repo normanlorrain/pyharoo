@@ -105,3 +105,4 @@ ENV/
 .vscode/
 
 tests/output/
+pyharoo/haru/demo/*.pdf
