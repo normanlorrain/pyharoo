@@ -5,4 +5,4 @@ def printf(format, *optional):
         optional=optional[0]
     if format.endswith('\n'):
         format=format[:-1]
-    print format % optional
+    print( format % optional )

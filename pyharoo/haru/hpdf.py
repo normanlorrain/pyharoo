@@ -935,8 +935,8 @@ def HPDF_Page_TextWidth(
                         page,           #HPDF_Page
                         text,           #c_char_p
                        ):
-    if type(text) in (types.ListType, types.TupleType):
-        if type(text[-1]) != types.StringType:
+    if isinstance(text, str) or isinstance(text, tuple):
+        if not isinstance(text[-1], str):
             text=[chr(i) for i in text]
         text=''.join(text)
 
@@ -1734,12 +1734,12 @@ _HPDF_Page_ShowText.restype=HPDF_STATUS
 def HPDF_Page_ShowText(page,
                        text
                       ):
-    if type(text) in (types.ListType, types.TupleType):
-        if type(text[-1]) != types.StringType:
+    if isinstance(text, str) or isinstance(text, tuple) or isinstance(text, list):
+        if not isinstance(text[-1], str):
             text=[chr(i) for i in text]
         text=''.join(text)
     return _HPDF_Page_ShowText(page,
-                       text
+                       bytes(text, 'utf-8')
                       )
 
 
@@ -2035,8 +2035,8 @@ def HPDF_Page_TextOut(
                      ):
     xpos=HPDF_REAL(xpos)
     ypos=HPDF_REAL(ypos)
-    if type(text) in (types.ListType, types.TupleType):
-        if type(text[-1]) != types.StringType:
+    if isinstance(text, str) or isinstance(text, tuple):
+        if not isinstance(text[-1], str):
             text=[chr(i) for i in text]
         text=''.join(text)
 
