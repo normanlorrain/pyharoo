@@ -28,6 +28,11 @@ Features
 
 * TODO
 
+
+Installation
+-----
+* put libharu.dll in the system path (Win32).  Suggestion: put it in .venv/Scripts
+
 Credits
 -------
 
