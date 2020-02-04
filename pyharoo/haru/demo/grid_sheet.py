@@ -43,7 +43,7 @@ def error_handler (error_no, detail_no, user_data):
 def print_grid  (pdf, page):
     height = HPDF_Page_GetHeight (page)
     width = HPDF_Page_GetWidth (page)
-    font = HPDF_GetFont (pdf, b"Helvetica", NULL)
+    font = HPDF_GetFont (pdf, "Helvetica", NULL)
 
     HPDF_Page_SetFontAndSize (page, font, 5)
     HPDF_Page_SetGrayFill (page, 0.5)

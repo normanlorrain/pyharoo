@@ -141,8 +141,11 @@ HPDF_ResetStream.restype=HPDF_STATUS
 
 
 #HPDF_STATUS HPDF_SaveToFile (HPDF_Doc pdf, const char *file_name)
-HPDF_SaveToFile=haru.HPDF_SaveToFile
-HPDF_SaveToFile.restype=HPDF_STATUS
+_HPDF_SaveToFile=haru.HPDF_SaveToFile
+_HPDF_SaveToFile.restype=HPDF_STATUS
+
+def HPDF_SaveToFile( pdf, file_name ):
+    return _HPDF_SaveToFile(pdf, bytes(str(file_name),'utf-8') )
 
 
 #HPDF_STATUS HPDF_GetError (HPDF_Doc pdf)
@@ -289,8 +292,11 @@ def HPDF_Page_SetRotate(
 
 
 #HPDF_Font HPDF_GetFont (HPDF_Doc pdf, const char *font_name, const char *encoding_name)
-HPDF_GetFont=haru.HPDF_GetFont
-HPDF_GetFont.restype=HPDF_Font
+_HPDF_GetFont=haru.HPDF_GetFont
+_HPDF_GetFont.restype=HPDF_Font
+def HPDF_GetFont(pdf, font_name, encoding_name):
+    return _HPDF_GetFont(pdf, bytes(font_name, 'utf-8'), encoding_name )
+
 
 
 #const char* HPDF_LoadType1FontFromFile (HPDF_Doc pdf, const char *afm_file_name, const char *data_file_name)

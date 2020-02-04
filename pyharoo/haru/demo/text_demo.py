@@ -95,7 +95,7 @@ def main ():
     HPDF_SetCompressionMode (pdf, HPDF_COMP_ALL)
 
     # create default-font
-    font = HPDF_GetFont (pdf, b"Helvetica", NULL)
+    font = HPDF_GetFont (pdf, "Helvetica", NULL)
 
     # add a new page object.
     page = HPDF_AddPage (pdf)
@@ -348,7 +348,7 @@ def main ():
     HPDF_Page_EndText (page)
 
     # save the document to a file
-    HPDF_SaveToFile (pdf, bytes(fname, 'utf-8') )
+    HPDF_SaveToFile (pdf, fname )
 
     # clean up
     HPDF_Free (pdf)

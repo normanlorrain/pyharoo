@@ -21,8 +21,7 @@ error_handler = None
 def test_emptyPDF():
     pdf = HPDF_New (error_handler, NULL)
     page_1 = HPDF_AddPage (pdf)
-    outfilename = bytes(TEST_DIR/"test.pdf")
-    print(outfilename)
+    outfilename = TEST_DIR/"test.pdf"
     res = HPDF_SaveToFile (pdf, outfilename)
     if res: 
         detail = HPDF_GetErrorDetail()
