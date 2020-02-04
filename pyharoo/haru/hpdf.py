@@ -358,9 +358,11 @@ HPDF_UseCNTFonts.restype=HPDF_STATUS
 
 
 #HPDF_Outline HPDF_CreateOutline (HPDF_Doc pdf, HPDF_Outline parent, const char *title, HPDF_Encoder encoder)
-HPDF_CreateOutline=haru.HPDF_CreateOutline
-HPDF_CreateOutline.restype=HPDF_Outline
-
+_HPDF_CreateOutline=haru.HPDF_CreateOutline
+_HPDF_CreateOutline.restype=HPDF_Outline
+def HPDF_CreateOutline(pdf, parent, title, encoder):
+    title = bytes(title, 'utf-8')
+    return _HPDF_CreateOutline(pdf,parent,title,encoder)
 
 #HPDF_STATUS HPDF_Outline_SetOpened (HPDF_Outline outline, HPDF_BOOL opened)
 HPDF_Outline_SetOpened=haru.HPDF_Outline_SetOpened
