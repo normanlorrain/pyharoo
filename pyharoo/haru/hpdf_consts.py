@@ -17,7 +17,7 @@
 ## port to python by Li Jun
 ## http://groups.google.com/group/pythoncia
 
-from hpdf_types import *
+from .hpdf_types import *
 
 #----------------------------------------------------------------------------
 

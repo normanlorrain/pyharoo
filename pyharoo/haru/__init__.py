@@ -1,4 +1,4 @@
-from hpdf import *
+from .hpdf import *
 
 __version__='2.0.8'
 

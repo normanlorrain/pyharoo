@@ -31,13 +31,17 @@ def setpath():
 setpath()
 
 
-from hpdf_consts import *
-from hpdf_types import *
+from .hpdf_consts import *
+from .hpdf_types import *
+
+
+from ctypes.util import find_library
 
 if os.sys.platform=='win32':
-    harudll='libhpdf.dll'
-    #haru=WinDLL(harudll)
-    haru=CDLL(harudll)
+    harudll=find_library('libhpdf.dll')
+    print("Using DLL: ", harudll)
+    haru=WinDLL(harudll)
+    #haru=CDLL(harudll)
 else:
     harudll='libhpdf.so'
     haru=CDLL(harudll)
