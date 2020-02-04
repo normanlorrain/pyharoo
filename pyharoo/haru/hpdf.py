@@ -2044,10 +2044,7 @@ def HPDF_Page_TextOut(
                      ):
     xpos=HPDF_REAL(xpos)
     ypos=HPDF_REAL(ypos)
-    if isinstance(text, str) or isinstance(text, tuple):
-        if not isinstance(text[-1], str):
-            text=[chr(i) for i in text]
-        text=''.join(text)
+    text = bytes(text,'utf-8')
 
     return _HPDF_Page_TextOut(
                               page,    #HPDF_Page
