@@ -16,6 +16,7 @@
 ## http://groups.google.com/group/pythoncia
 
 import os, sys
+from pathlib import Path
 
 from ctypes import *
 up=2
@@ -99,17 +100,19 @@ def main ():
     HPDF_Page_EndText (page)
 
     # load image file.
-    image = HPDF_LoadPngImageFromFile (pdf, "pngsuite/basn3p02.png")
+    pngsuite = Path(__file__).parent.absolute() / "pngsuite" 
+
+    image = HPDF_LoadPngImageFromFile (pdf, pngsuite / "basn3p02.png")
 
     # image1 is masked by image2.
-    image1 = HPDF_LoadPngImageFromFile (pdf, "pngsuite/basn3p02.png")
+    image1 = HPDF_LoadPngImageFromFile (pdf, pngsuite / "basn3p02.png")
 
     # image2 is a mask image.
-    image2 = HPDF_LoadPngImageFromFile (pdf, "pngsuite/basn0g01.png")
+    image2 = HPDF_LoadPngImageFromFile (pdf, pngsuite / "basn0g01.png")
 
     # image3 is a RGB-color image. we use this image for color-mask
     # * demo.
-    image3 = HPDF_LoadPngImageFromFile (pdf, "pngsuite/maskimage.png")
+    image3 = HPDF_LoadPngImageFromFile (pdf, pngsuite / "maskimage.png")
 
     iw = HPDF_Image_GetWidth (image)
     ih = HPDF_Image_GetHeight (image)
