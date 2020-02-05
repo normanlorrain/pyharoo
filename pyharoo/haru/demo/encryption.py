@@ -18,12 +18,17 @@
 import os, sys
 
 from ctypes import *
-up=2
+
+up = 2
+
+
 def setlibpath(up):
     import sys
-    path=os.path.normpath(os.path.split(os.path.realpath(__file__))[0]+'\..'*up)
+
+    path = os.path.normpath(os.path.split(os.path.realpath(__file__))[0] + "\.." * up)
     if path not in sys.path:
         sys.path.append(path)
+
 
 setlibpath(up)
 
@@ -37,49 +42,50 @@ user_passwd = "user"
 
 
 @HPDF_Error_Handler(None, HPDF_UINT, HPDF_UINT, c_void_p)
-def error_handler (error_no, detail_no, user_data):
+def error_handler(error_no, detail_no, user_data):
     global pdf
-    printf ("ERROR: %s, detail_no=%u\n", error_detail[error_no],
-                detail_no)
-    HPDF_Free (pdf)
+    printf("ERROR: %s, detail_no=%u\n", error_detail[error_no], detail_no)
+    HPDF_Free(pdf)
     sys.exit(1)
 
 
-def main ():
-    global  pdf
+def main():
+    global pdf
 
-    fname=os.path.realpath(sys.argv[0])
-    fname=fname[:fname.rfind('.')]+'.pdf'
+    fname = os.path.realpath(sys.argv[0])
+    fname = fname[: fname.rfind(".")] + ".pdf"
 
-    pdf = HPDF_New (error_handler, NULL)
-    if (not pdf):
-        printf ("error: cannot create PdfDoc object\n")
+    pdf = HPDF_New(error_handler, NULL)
+    if not pdf:
+        printf("error: cannot create PdfDoc object\n")
         return 1
 
     # create default-font
-    font = HPDF_GetFont (pdf, "Helvetica", NULL)
+    font = HPDF_GetFont(pdf, "Helvetica", NULL)
 
     # add a new page object.
-    page = HPDF_AddPage (pdf)
+    page = HPDF_AddPage(pdf)
 
-    HPDF_Page_SetSize (page, HPDF_PAGE_SIZE_B5, HPDF_PAGE_LANDSCAPE)
+    HPDF_Page_SetSize(page, HPDF_PAGE_SIZE_B5, HPDF_PAGE_LANDSCAPE)
 
-    HPDF_Page_BeginText (page)
-    HPDF_Page_SetFontAndSize (page, font, 20)
-    tw = HPDF_Page_TextWidth (page, text)
-    HPDF_Page_MoveTextPos (page, (HPDF_Page_GetWidth (page) - tw) / 2,
-                (HPDF_Page_GetHeight (page)  - 20) / 2)
-    HPDF_Page_ShowText (page, text)
-    HPDF_Page_EndText (page)
+    HPDF_Page_BeginText(page)
+    HPDF_Page_SetFontAndSize(page, font, 20)
+    tw = HPDF_Page_TextWidth(page, text)
+    HPDF_Page_MoveTextPos(
+        page, (HPDF_Page_GetWidth(page) - tw) / 2, (HPDF_Page_GetHeight(page) - 20) / 2
+    )
+    HPDF_Page_ShowText(page, text)
+    HPDF_Page_EndText(page)
 
-    HPDF_SetPassword (pdf, owner_passwd, user_passwd)
+    HPDF_SetPassword(pdf, owner_passwd, user_passwd)
 
     # save the document to a file
-    HPDF_SaveToFile (pdf, fname)
+    HPDF_SaveToFile(pdf, fname)
 
     # clean up
-    HPDF_Free (pdf)
+    HPDF_Free(pdf)
 
     return 0
+
 
 main()
