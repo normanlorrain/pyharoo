@@ -295,7 +295,10 @@ def HPDF_Page_SetRotate(
 _HPDF_GetFont=haru.HPDF_GetFont
 _HPDF_GetFont.restype=HPDF_Font
 def HPDF_GetFont(pdf, font_name, encoding_name):
-    return _HPDF_GetFont(pdf, bytes(font_name, 'utf-8'), bytes(encoding_name, 'utf-8') )
+    font_name = bytes(font_name, 'utf-8')
+    if encoding_name:
+        encoding_name = bytes(encoding_name, 'utf-8')
+    return _HPDF_GetFont(pdf, font_name, encoding_name )
 
 
 
@@ -629,9 +632,11 @@ HPDF_LoadPngImageFromFile2.restype=HPDF_Image
 
 
 #HPDF_Image HPDF_LoadJpegImageFromFile (HPDF_Doc pdf, const char *filename)
-HPDF_LoadJpegImageFromFile=haru.HPDF_LoadJpegImageFromFile
-HPDF_LoadJpegImageFromFile.restype=HPDF_Image
-
+_HPDF_LoadJpegImageFromFile=haru.HPDF_LoadJpegImageFromFile
+_HPDF_LoadJpegImageFromFile.restype=HPDF_Image
+def HPDF_LoadJpegImageFromFile(pdf, filename):
+    filename = bytes(str(filename),'utf-8')
+    return(_HPDF_LoadJpegImageFromFile(pdf, filename))
 
 #HPDF_Image HPDF_LoadRawImageFromFile (HPDF_Doc pdf, const char *filename, HPDF_UINT width, HPDF_UINT height, HPDF_ColorSpace color_space)
 _HPDF_LoadRawImageFromFile=haru.HPDF_LoadRawImageFromFile

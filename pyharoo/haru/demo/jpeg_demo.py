@@ -16,6 +16,7 @@
 ## http://groups.google.com/group/pythoncia
 
 import os, sys
+from pathlib import Path
 
 from ctypes import *
 up=2
@@ -44,7 +45,7 @@ def draw_image (pdf, filename, x, y, text):
 
     page = HPDF_GetCurrentPage (pdf)
 
-    filename1="images/%s" % filename
+    filename1 = Path(__file__).parent.absolute() / "images" / filename
 
     image = HPDF_LoadJpegImageFromFile (pdf, filename1)
 
