@@ -295,7 +295,8 @@ def HPDF_Page_SetRotate(
 _HPDF_GetFont=haru.HPDF_GetFont
 _HPDF_GetFont.restype=HPDF_Font
 def HPDF_GetFont(pdf, font_name, encoding_name):
-    font_name = bytes(font_name, 'utf-8')
+    if not isinstance(font_name, bytes):
+        font_name = bytes(font_name, 'utf-8')
     if encoding_name:
         encoding_name = bytes(encoding_name, 'utf-8')
     return _HPDF_GetFont(pdf, font_name, encoding_name )
@@ -303,9 +304,12 @@ def HPDF_GetFont(pdf, font_name, encoding_name):
 
 
 #const char* HPDF_LoadType1FontFromFile (HPDF_Doc pdf, const char *afm_file_name, const char *data_file_name)
-HPDF_LoadType1FontFromFile=haru.HPDF_LoadType1FontFromFile
-HPDF_LoadType1FontFromFile.restype=c_char_p
-
+_HPDF_LoadType1FontFromFile=haru.HPDF_LoadType1FontFromFile
+_HPDF_LoadType1FontFromFile.restype=c_char_p
+def HPDF_LoadType1FontFromFile( pdf,afm_file_name, data_file_name ):
+    afm_file_name = bytes(str(afm_file_name), 'utf-8')
+    data_file_name = bytes(str(data_file_name), 'utf-8')
+    return _HPDF_LoadType1FontFromFile(pdf, afm_file_name, data_file_name)
 
 #const char* HPDF_LoadTTFontFromFile (HPDF_Doc pdf, const char *file_name, HPDF_BOOL embedding)
 HPDF_LoadTTFontFromFile=haru.HPDF_LoadTTFontFromFile

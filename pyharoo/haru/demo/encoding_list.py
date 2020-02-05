@@ -16,6 +16,7 @@
 ## http://groups.google.com/group/pythoncia
 
 import os, sys
+from pathlib import Path
 
 from ctypes import *
 up=2
@@ -91,16 +92,14 @@ def draw_fonts (page):
     # Draw all character from 0x20 to 0xFF to the canvas.
     for i in range(1,17):
         for j in range(1,17):
-            buf=[None, None]
             y = PAGE_HEIGHT - 55 - ((i - 1) * CELL_HEIGHT)
             x = j * CELL_WIDTH + 50
 
-            buf[1] = 0x00
 
-            buf[0] = (i - 1) * 16 + (j - 1)
-            if (buf[0] >= 32):
-                d  = x - HPDF_Page_TextWidth (page, buf) / 2
-                HPDF_Page_TextOut (page, d, y, buf)
+            ascii_char = (i - 1) * 16 + (j - 1)
+            if (ascii_char >= 32):
+                d  = x - HPDF_Page_TextWidth (page, chr(ascii_char)) / 2
+                HPDF_Page_TextOut (page, d, y, chr(ascii_char))
 
 
     HPDF_Page_EndText (page)
@@ -152,8 +151,10 @@ def main ():
     font = HPDF_GetFont (pdf, "Helvetica", NULL)
 
     # load font object
-    font_name = HPDF_LoadType1FontFromFile (pdf, "type1/a010013l.afm",
-            "type1/a010013l.pfb")
+    afm_file_name = Path(__file__).parent.absolute() / "type1" / "a010013l.afm"
+    data_file_name = Path(__file__).parent.absolute() / "type1" / "a010013l.pfb"
+    font_name = HPDF_LoadType1FontFromFile (pdf, afm_file_name,data_file_name )
+
 
     # create outline root.
     root = HPDF_CreateOutline (pdf, NULL, "Encoding list", NULL)
