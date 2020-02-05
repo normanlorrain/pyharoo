@@ -1765,13 +1765,15 @@ _HPDF_Page_ShowText.restype=HPDF_STATUS
 def HPDF_Page_ShowText(page,
                        text
                       ):
-    if isinstance(text, str) or isinstance(text, tuple) or isinstance(text, list):
+    if isinstance(text, tuple) or isinstance(text, list):
         if not isinstance(text[-1], str):
             text=[chr(i) for i in text]
         text=''.join(text)
-    return _HPDF_Page_ShowText(page,
-                       bytes(text, 'utf-8')
-                      )
+    if not isinstance(text, bytes):
+        text = bytes(text, 'utf-8')
+
+    return _HPDF_Page_ShowText(page,text)
+                      
 
 
 # TJ

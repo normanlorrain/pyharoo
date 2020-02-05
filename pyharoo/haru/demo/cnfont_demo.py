@@ -16,6 +16,7 @@
 ## http://groups.google.com/group/pythoncia
 
 import os, sys
+from pathlib import Path
 
 from ctypes import *
 up=2
@@ -59,10 +60,11 @@ SimHei,BoldItalic
     detail_font=[]
     PAGE_HEIGHT = 210
 
+    infilename = Path(__file__).parent.absolute() / "mbtext"/"cp936.txt"
     try:
-        f = open ("mbtext/cp936.txt", "rb")
+        f = open (infilename, "rb")
     except:
-        printf ("error: cannot open 'mbtext/sjis.txt'\n")
+        print (f"error: cannot open {infilename}")
         return 1
 
     samp_text=f.read(2048)
