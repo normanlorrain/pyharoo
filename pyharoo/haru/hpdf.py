@@ -785,8 +785,14 @@ HPDF_SetInfoDateAttr.restype=HPDF_STATUS
 #--------------------------------------------------------------------------
 #----- encryption ---------------------------------------------------------
 #HPDF_STATUS HPDF_SetPassword (HPDF_Doc pdf, const char *owner_passwd, const char *user_passwd)
-HPDF_SetPassword=haru.HPDF_SetPassword
-HPDF_SetPassword.restype=HPDF_STATUS
+_HPDF_SetPassword=haru.HPDF_SetPassword
+_HPDF_SetPassword.restype=HPDF_STATUS
+def HPDF_SetPassword( pdf, owner_passwd, user_passwd):
+    if not isinstance(owner_passwd, bytes):
+        owner_passwd = bytes(owner_passwd, 'utf-8')
+    if not isinstance(user_passwd, bytes):
+        user_passwd = bytes(user_passwd,'utf-8')
+    _HPDF_SetPassword(pdf, owner_passwd, user_passwd)
 
 #HPDF_STATUS HPDF_SetPermission (HPDF_Doc pdf, HPDF_UINT permission)
 _HPDF_SetPermission=haru.HPDF_SetPermission
